@@ -1,0 +1,49 @@
+
+
+
+Como não conseguimos o modelo (![<img src="samples/model.png" height="500" alt="Modelo" title="Modelo"/>](samples/model.png)) inventei algo para tentar interpretar as condições do teste, Abaixo esta a solução:
+
+
+
+
+--Cliente que não realizaram compras (Listar todos Clientes que não tenham realizado uma compra;)
+SELECT 
+	ID_CLIENTE,
+	NOME
+FROM [TABELA COMPRAS]
+WHERE [DATA COMPRA] IS NULL
+
+--Produtos que não foram comprados (Listar os Produtos que não tenham sido comprados)
+SELECT 
+	ID_PRODUTO,
+	PRODUTO
+FROM [TABELA COMPRAS]
+WHERE [DATA COMPRA] IS NULL
+
+
+--Produtos sem estoque
+SELECT 
+	ID_PRODUTO,
+	PRODUTO
+FROM [TABELA ESTOQUE]
+WHERE [QTDE ESTOQUE] <= 0
+
+--Quantidade de vendas do produto/marca por loja (Agrupar a quantidade de vendas que uma determinada Marca por Loja.)
+SELECT 
+	PRODUTO,
+	LOJA,
+	COUNT(ID_VENDAS) AS QTDE_VENDAS
+FROM [TABELA COMPRAS]
+WHERE [DATA COMPRA] IS NOT NULL
+GRUP BY 
+	ID_PRODUTO,
+	PRODUTO,
+	ID_LOJA,
+	LOJA
+	
+--Funcionarios que não estão relacionados a pedidos (Listar os Funcionarios que não estejam relacionados a um Pedido.)
+SELECT 
+	ID_FUNCIONARIO,
+	FUNIONARIO
+FROM [TABELA COMPRAS]
+WHERE [DATA COMPRA] IS NULL
